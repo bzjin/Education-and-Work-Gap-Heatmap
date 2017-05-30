@@ -2,6 +2,11 @@ var f = d3.format(".1f");
 var color = d3.scaleQuantize()
 			.domain([-3, 3])
 			.range(["#a50026","#d73027","#f46d43","#fdae61","#fee08b","#ffffbf","#d9ef8b","#a6d96a","#66bd63","#1a9850","#006837"])
+
+var grad = d3.scaleQuantize()
+			.domain([0, 8])
+			.range(["#a50026","#d73027","#f46d43","#fdae61","#fee08b","#ffffbf","#d9ef8b","#a6d96a","#66bd63","#1a9850","#006837"])
+
 d3.queue()
 	.defer(d3.csv, "data/data.csv")
 	.defer(d3.csv, "data/clusters.csv")
@@ -30,13 +35,49 @@ d3.queue()
 			.attr("class", "jobs")
 			.attr("width", 190)
 			.attr("height", 750)
+	//Key
+	for (i=0; i<8; i++){
+		sidebar.append("rect")
+			.attr("x", 50 + i*12)
+			.attr("y", 250)
+			.attr("width", 10)
+			.attr("height", 10)
+			.style("fill", grad(i))
+	}
 
 	sidebar.append("text")
-			.attr("x", 190)
+			.attr("x", 48)
 			.attr("y", 230)
+			.style("font-weight", 700)
+			.style("font-size", 10)
+			.text("Skill Gap")
+
+	sidebar.append("text")
+			.attr("x", 48)
+			.attr("y", 245)
+			.style("font-size", 10)
+			.text("-5.0")
+
+	sidebar.append("text")
+			.attr("x", 98)
+			.attr("y", 245)
+			.style("font-size", 10)
+			.text("0")
+
+	sidebar.append("text")
+			.attr("x", 132)
+			.attr("y", 245)
+			.style("font-size", 10)
+			.text("5.0")
+
+	//Scale Labels
+	sidebar.append("text")
+			.attr("x", -400)
+			.attr("y", 60)
 			.style("text-anchor", "end")
-			.style("font-size", 20)
+			.style("font-size", 28)
 			.text("Skill Type")
+			.attr("transform", "rotate(-90)")
 
 	sidebar.append("text")
 			.attr("x", 170)
